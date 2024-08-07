@@ -30,6 +30,10 @@ class LinkedList {
     //这是表头
     private HeroNode head = new HeroNode(0, "", "");
 
+    public HeroNode getHead() {
+        return head;
+    }
+
     //按添加顺序添加
     public void add(HeroNode heroNode) {
         //表头的节点不能移动，故需要一个新变量来储存变化的节点
@@ -162,6 +166,20 @@ class LinkedList {
             System.out.println(temp);
             temp = temp.next;
         }
+    }
+
+    //获取链表长度(有效节点个数)
+    public int getLength(HeroNode head){
+        if(head == null){
+            return 0;//传了一个只有表头的空链表
+        }
+        HeroNode temp = head.next;
+        int length = 0;
+        if(temp != null){
+            length++;
+            temp = temp.next;
+        }
+        return length;
     }
 
 }
