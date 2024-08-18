@@ -52,7 +52,7 @@ public class QuickSort {
         if (l == r) {//将左，右指针分别移向中轴的右，左一位 => 实现一个相对效果
             l += 1;
             r -= 1;//这个+，-1还可以使得后续的递归的长度减少
-            // 即使得每次迭代的leftIndex与r ，rightIndex与l的差值变小
+            // 即使得每次迭代,r会不断逼近leftIndex！=> 使得迭代能over
         }
 
         if (leftIndex < r) {//向左递归，此时的r是相对于leftIndex的right下标
