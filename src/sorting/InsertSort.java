@@ -5,7 +5,7 @@ import java.util.Arrays;
 //插入排序
 //将一个数组分成两个part，一个是有序表，一个是无序表。
 //每次遍历将无序表的第一个元素，向前与有序表的元素比大小 => 小->大
-//
+//对插入排序的缺点进行一些补充：当待插入的数较小时。交换的次数明显增多！
 public class InsertSort {
     public static void main(String[] args) {
         int[] arr = {30, -1, 29, -11, 99, 6};
