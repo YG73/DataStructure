@@ -32,6 +32,7 @@ public class RadixSort {
             for (int j = 0; j < arr.length; j++) {
                 int digitOfElement = arr[j] / n % 10;
                 //进行一下说明：位数的值和桶号相对应！
+                //bucketElementCounts[digitOfElement]记录了该桶内有效值的数量
                 bucket[digitOfElement][bucketElementCounts[digitOfElement]] = arr[j];
                 bucketElementCounts[digitOfElement] += 1;
             }//说明已全部装入桶中
