@@ -50,10 +50,24 @@ class Emp {
             }
             //若添加的不是第一个雇员
             Emp index = head;//用来记录遍历到哪一个雇员
-            while (index.getNext() != null) {
-                index = index.getNext();
-            }//退出循环，说明index.next为空
-            index.setNext(emp);
+//            while (index.getNext() != null) {
+//                index = index.getNext();
+//            }//退出循环，说明index.next为空
+//            index.setNext(emp);
+            //实现根据id大小添加至链表中
+            while (true) {
+                if (index.next == null) {
+                    index.setNext(emp);
+                    return;
+                }
+                if (index.next.getId() > emp.id) {
+                    Emp nextTemp = index.next;
+                    index.setNext(emp);
+                    emp.setNext(nextTemp);
+                    return;
+                }
+                index = index.next;
+            }
         }
 
         //遍历链表节点
@@ -70,7 +84,7 @@ class Emp {
         }
 
         public void del(int id) {
-            if(head==null){
+            if (head == null) {
                 return;
             }
             //找到我们要删除的雇员的前一个
