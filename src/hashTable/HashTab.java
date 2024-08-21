@@ -92,16 +92,14 @@ class Emp {
             Emp preEmp = head;
             if (this.head.getId() == id) {
                 this.head = preEmp.next;
+                return;
             }
-            while (true) {
-                if (curEmp == null) return;
-                if (curEmp.getId() == id) {
-                    preEmp.setNext(curEmp.next);
-                    curEmp.setNext(null);
-                    return;
-                }
+            while (curEmp != null && curEmp.getId() != id) {
                 preEmp = preEmp.next;
                 curEmp = curEmp.next;
+            }
+            if (curEmp != null) {
+                preEmp.setNext(curEmp.next);
             }
         }
     }
@@ -144,15 +142,13 @@ class Emp {
         public Emp findEmpById(int id) {
             int linkedListNo = hashFun(id);
             Emp curEmp = hashLinkedLists[linkedListNo].head;
-            while (true) {
-                if (curEmp == null) return null;
-                if(curEmp.getId()==id){
-                    break;
+            while (curEmp != null) {
+                if (curEmp.getId() == id) {
+                    return curEmp;
                 }
                 curEmp = curEmp.next;
             }
-            return curEmp;
-
+            return null;
         }
 
         //根据id删除某个雇员
