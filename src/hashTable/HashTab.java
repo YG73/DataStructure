@@ -79,7 +79,7 @@ class Emp {
             Emp curIndex = head;
             while (curIndex != null) {
                 System.out.printf("->第%d条链表：id=%d - name=%s\t", no + 1, curIndex.getId(), curIndex.getName());
-                curIndex = curIndex.getNext();
+                curIndex = curIndex.next;
             }
         }
 
@@ -94,13 +94,12 @@ class Emp {
                 this.head = preEmp.next;
             }
             while (true) {
+                if (curEmp == null) return;
                 if (curEmp.getId() == id) {
                     preEmp.setNext(curEmp.next);
                     curEmp.setNext(null);
                     return;
                 }
-                if (curEmp == null) return;
-
                 preEmp = preEmp.next;
                 curEmp = curEmp.next;
             }
@@ -145,13 +144,15 @@ class Emp {
         public Emp findEmpById(int id) {
             int linkedListNo = hashFun(id);
             Emp curEmp = hashLinkedLists[linkedListNo].head;
-            while (curEmp.getId() != id || curEmp == null) {
+            while (true) {
+                if (curEmp == null) return null;
+                if(curEmp.getId()==id){
+                    break;
+                }
                 curEmp = curEmp.next;
             }
-            if (curEmp.getId() == id) {
-                return curEmp;
-            }
-            return null;
+            return curEmp;
+
         }
 
         //根据id删除某个雇员
