@@ -8,13 +8,13 @@ public class BinarySearch {
     public static void main(String[] args) {
         int[] arr = {1, 4, 7, 22, 33};
         int findValue = 22;
-        int orderIndex = binarySearch(arr, 0, arr.length, findValue);
+        int orderIndex = binarySearch(arr, 0, arr.length-1, findValue);
         System.out.println(findValue + "在数组的下标为" + orderIndex);
     }
 
     //会返回目标值的下标索引，若无，则返回-1
     public static int binarySearch(int[] arr, int left, int right, int findValue) {
-        if (left > right) {
+        if (left > right || findValue < arr[left] || findValue > arr[right]) {
             //数组中没有目标值
             return -1;
         }
