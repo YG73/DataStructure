@@ -170,9 +170,6 @@ class Node {
         return res;//此处已成功遍历完 子树 OR 所有节点
     }
 
-    //这个del方法未进行优化，当其指向删除时
-    //若为子叶节点，则删除该节点
-    //若为非子叶节点，则将整个子树删除
     public void del(int no) {
         //从目标节点的父节点位置，执行删除目标节点的功能
         if (this.left != null && this.left.getNo() == no) {
