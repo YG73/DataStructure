@@ -370,4 +370,5 @@ class ThreadBinaryTree {
             node = node.getRight();//直接替换为最后一个节点，该节点会在下次遍历完成后退出
         }
     }
+    //后序下次再说，歇会！
 }
