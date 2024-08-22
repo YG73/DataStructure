@@ -15,7 +15,9 @@ public class ThreadBinaryTreeDemo {
 
         threadbinaryTree.threadedInFixOrder();
 
-        System.out.printf("node3的前驱节点：%d", node3.getLeft().getNo());
+        //threadbinaryTree.preOrder();
+        //System.out.printf("node3的前驱节点：%d", node3.getLeft().getNo());
+        threadbinaryTree.threadPreOrderList();
 
     }
 }
@@ -98,34 +100,36 @@ class Node {
                 '}';
     }
 
+    //对二叉树的遍历，查找方法进行了优化，使之在线索化二叉树与二叉树皆可使用
+    //优化：左右子树递归前，需要判断左右节点是否是子树
     //前序遍历
     public void preOrder() {
         System.out.println(this);
-        if (this.left != null) {
+        if (this.left != null && this.getLeftType() == 0) {
             this.left.preOrder();
         }
-        if (this.right != null) {
+        if (this.right != null && this.getRightType() == 0) {
             this.right.preOrder();
         }
     }
 
     //中序遍历
     public void infixOrder() {
-        if (this.left != null) {
+        if (this.left != null && this.getLeftType() == 0) {
             this.left.preOrder();
         }
         System.out.println(this);
-        if (this.right != null) {
+        if (this.right != null && this.getRightType() == 0) {
             this.right.preOrder();
         }
     }
 
     //后序遍历
     public void postOrder() {
-        if (this.left != null) {
+        if (this.left != null && this.getLeftType() == 0) {
             this.left.preOrder();
         }
-        if (this.right != null) {
+        if (this.right != null && this.getRightType() == 0) {
             this.right.preOrder();
         }
         System.out.println(this);
@@ -137,14 +141,14 @@ class Node {
             return this;
         }
         Node res = null;
-        if (this.left != null) {
+        if (this.left != null && this.getLeftType() == 0) {
             res = this.left.preOrderSearch(no);
         }
         //判断左节点是否成功找到，若没找到才进入右节点进行查找
         if (res != null) {
             return res;
         }
-        if (this.right != null) {
+        if (this.right != null && this.getRightType() == 0) {
             this.right.preOrderSearch(no);
         }
         return res;//此处已成功遍历完 子树 OR 所有节点
@@ -154,7 +158,7 @@ class Node {
     public Node inFixOrderSearch(int no) {
         //先从左节点开始查找
         Node res = null;
-        if (this.left != null) {
+        if (this.left != null && this.getLeftType() == 0) {
             res = this.left.inFixOrderSearch(no);
         }
         //判断左节点是否成功找到，若没找到才进入当前节点进行查找
@@ -164,7 +168,7 @@ class Node {
         if (this.getNo() == no) {
             return this;
         }
-        if (this.right != null) {
+        if (this.right != null && this.getRightType() == 0) {
             this.right.inFixOrderSearch(no);
         }
         return res;//此处已成功遍历完 子树 OR 所有节点
@@ -173,14 +177,15 @@ class Node {
     //后序遍历查找
     public Node postOrderSearch(int no) {
         Node res = null;
-        if (this.left != null) {
+        if (this.left != null
+                && this.getLeftType() == 0) {
             res = this.left.postOrderSearch(no);
         }
         //判断左节点是否成功找到，若没找到才进入右节点进行查找
         if (res != null) {
             return res;
         }
-        if (this.right != null) {
+        if (this.right != null && this.getRightType() == 0) {
             this.right.postOrderSearch(no);
         }
         if (res != null) {
@@ -193,9 +198,7 @@ class Node {
         return res;//此处已成功遍历完 子树 OR 所有节点
     }
 
-    //这个del方法未进行优化，当其指向删除时
-    //若为子叶节点，则删除该节点
-    //若为非子叶节点，则将整个子树删除
+    //这个del方法未进行针对 线索化二叉树 优化
     public void del(int no) {
         //从目标节点的父节点位置，执行删除目标节点的功能
         if (this.left != null && this.left.getNo() == no) {
@@ -333,6 +336,38 @@ class ThreadBinaryTree {
 
         //线索化右子树
         threadedInFixOrder(node.getRight());
-
+    }
+    //仅能在实现了线索化的二叉树中使用
+    //中序遍历线索化二叉树
+    public void threadInFixOrderList(){
+        Node node =root;//从root开始遍历
+        while (node!=null) {
+            while (node.getLeftType() == 0) {
+                node = node.getLeft();//不断向左子树移动
+            }
+            System.out.println(node);
+            //利用后继结点开始遍历
+            while (node.getRightType() == 1) {
+                node = node.getRight();
+                System.out.println(node);
+            }//退出循环，说明node最后一个节点的前驱节点
+            node = node.getRight();//直接替换为最后一个节点，该节点会在下次遍历完成后退出
+        }
+    }
+    //前序
+    public void threadPreOrderList(){
+        Node node =root;//从root开始遍历
+        while (node!=null) {
+            System.out.println(node);
+            while (node.getLeftType() == 0) {
+                node = node.getLeft();//不断向左子树移动
+                System.out.println(node);
+            }
+            //利用后继结点开始遍历
+            while (node.getRightType() == 1) {
+                node = node.getRight();
+            }//退出循环，说明node最后一个节点的前驱节点
+            node = node.getRight();//直接替换为最后一个节点，该节点会在下次遍历完成后退出
+        }
     }
 }
