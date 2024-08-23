@@ -37,7 +37,6 @@ public class HuffmanTree {
         }
         return nodes.get(0);
     }
-
 }
 
 class Node implements Comparable<Node> {
