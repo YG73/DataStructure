@@ -1,5 +1,7 @@
 package tree.thread_binary_tree;
 
+import java.util.Stack;
+
 public class ThreadBinaryTreeDemo {
     public static void main(String[] args) {
         ThreadBinaryTree threadbinaryTree = new ThreadBinaryTree();
@@ -14,7 +16,6 @@ public class ThreadBinaryTreeDemo {
         node2.setRight(node3);
 
         threadbinaryTree.threadedInFixOrder();
-
         //threadbinaryTree.preOrder();
         //System.out.printf("node3的前驱节点：%d", node3.getLeft().getNo());
         threadbinaryTree.threadPreOrderList();
@@ -337,11 +338,12 @@ class ThreadBinaryTree {
         //线索化右子树
         threadedInFixOrder(node.getRight());
     }
+
     //仅能在实现了线索化的二叉树中使用
     //中序遍历线索化二叉树
-    public void threadInFixOrderList(){
-        Node node =root;//从root开始遍历
-        while (node!=null) {
+    public void threadInFixOrderList() {
+        Node node = root;//从root开始遍历
+        while (node != null) {
             while (node.getLeftType() == 0) {
                 node = node.getLeft();//不断向左子树移动
             }
@@ -354,10 +356,11 @@ class ThreadBinaryTree {
             node = node.getRight();//直接替换为最后一个节点，该节点会在下次遍历完成后退出
         }
     }
+
     //前序
-    public void threadPreOrderList(){
-        Node node =root;//从root开始遍历
-        while (node!=null) {
+    public void threadPreOrderList() {
+        Node node = root;//从root开始遍历
+        while (node != null) {
             System.out.println(node);
             while (node.getLeftType() == 0) {
                 node = node.getLeft();//不断向左子树移动
@@ -367,8 +370,29 @@ class ThreadBinaryTree {
             while (node.getRightType() == 1) {
                 node = node.getRight();
             }//退出循环，说明node最后一个节点的前驱节点
-            node = node.getRight();//直接替换为最后一个节点，该节点会在下次遍历完成后退出
+            node = node.getRight();//直接进入右子树 OR 直接替换为最后一个节点，该节点会在下次遍历完成后退出
         }
     }
-    //后序下次再说，歇会！
+
+    //增加一个记录父节点的属性来实现后序遍历
+//    public void threadPostOrderList() {
+//        Node node = root;//从root开始遍历
+//        Node pre = null;
+//        while (node != null) {
+//            while (node.getLeftType() == 0) {
+//                pre = node;
+//                node = node.getLeft();//不断向左子树移动
+//            }
+//            //利用后继结点开始遍历
+//            while (node.getRightType() == 1) {//说明该节点的右节点为后继节点
+//                System.out.println(pre);
+//                pre = node;
+//                node = node.getRight();
+//            }//退出循环，说明node的右子树未访问
+//            node = node.getRight();//直接进入右子树 OR 直接替换为最后一个节点，该节点会在下次遍历完成后退出
+//            if(node.getLeftType()==1){
+//                System.out.println(pre);
+//            }
+//        }
+//    }
 }
