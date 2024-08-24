@@ -23,6 +23,8 @@ public class HuffmanTree {
         //开始构建哈夫曼树
         Node rigthNode,leftNode,parantNode;
         while (nodes.size() > 1) {
+            //先排序
+            Collections.sort(nodes);
             //从数组中取出当前数组内的俩最小值，并将其组成一个新树后再装入原数组
             rigthNode =nodes.get(0);//令左节点的值比右节点大
             leftNode=nodes.get(1);
@@ -33,7 +35,6 @@ public class HuffmanTree {
            nodes.remove(rigthNode);
            nodes.remove(leftNode);
            nodes.add(parantNode);
-           Collections.sort(nodes);
         }
         return nodes.get(0);
     }
