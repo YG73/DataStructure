@@ -12,7 +12,7 @@ public class BinarySortTreeDemo {
         binarySortTree.getBinarySortTree(arr);
         binarySortTree.inFixOrder();
         System.out.println("del");
-        binarySortTree.delNode(10);
+        binarySortTree.delNode(1);
         binarySortTree.inFixOrder();
 
     }
@@ -138,11 +138,20 @@ class BinarySortTree {
         if (root == null) return null;
         return root.searchPreTargetNode(value);
     }
-
-    public int delRightTree(Node node) {
+        //查找并删除左子树最大值
+    public int delLeftTree(Node node) {
         Node target = node;
         while (target.left != null) {
             target = target.left;
+        }
+        this.delNode(target.value);
+        return target.value;
+    }
+    //查找并删除左子树最大值
+    public int delRightTree(Node node) {
+        Node target = node;
+        while (target.right != null) {
+            target = target.right;
         }
         this.delNode(target.value);
         return target.value;
